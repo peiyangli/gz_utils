@@ -10,7 +10,7 @@
 -author("pei").
 
 %% API
--export([second/0, millisecond/0, microsecond/0]).
+-export([second/0, millisecond/0, microsecond/0, now/0]).
 -export([timestamp_to_datetime/1, format/1, timestamp_to_localtime/1, timestamp_to_datetime/2, hms_to_s/1, timestamp_to_date/2]).
 -export([datetime_add_second/2, date_next/1, date_next/2, datetime_to_timestamp/2, date_to_timestamp/2]).
 
@@ -22,6 +22,7 @@ test()->
   calendar:now_to_datetime(erlang:timestamp()).
 
 
+now()->erlang:system_time(millisecond).
 
 second()->
   erlang:system_time(second).
