@@ -114,7 +114,7 @@ convert_ok_integer(V, OK) ->
 ok_integer(F)when is_function(F, 1)-> F;
 ok_integer({clip, {A, B}})->
   fun(V)->
-    {ok, dg_util:clip(V, A, B)}
+    {ok, gz_util:clip(V, A, B)}
   end;
 ok_integer({range, {A, B}})->
   fun(V)->
@@ -156,7 +156,7 @@ convert_ok_float(V, OK) ->
 ok_float(F)when is_function(F, 1)-> F;
 ok_float({clip, {A, B}})->
   fun(V)->
-    {ok, dg_util:clip(V, A, B)}
+    {ok, gz_util:clip(V, A, B)}
   end;
 ok_float({range, {A, B}})->
   fun(V)->
@@ -279,11 +279,11 @@ converter_rune_binary(M)-> fun (V)-> convert_ok_binary(V, ok_rune_binary(M)) end
 
 
 converter_jsonmap()->
-  fun dg_util:json_decode/1.
+  fun gz_util:json_decode/1.
 
 %% require jiffy
 convert_ok_jsonmap(V, OK) ->
-  case dg_util:json_decode(V) of
+  case gz_util:json_decode(V) of
     {ok, Map}-> OK(Map);
     Err -> Err
   end.

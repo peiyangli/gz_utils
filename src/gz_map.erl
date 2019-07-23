@@ -28,9 +28,9 @@ path([Key], Map, Def) when is_map(Map)->
 path([Key|Path], Map, Def) when is_map(Map)->
   path(Path, maps:get(Key, Map), Def);
 path([Key], List, Def) when is_integer(Key)->
-  dg_list:nth(Key, List, Def);
+  gz_list:nth(Key, List, Def);
 path([Key|Path], List, Def) when is_integer(Key)->
-  path(Path, dg_list:nth(Key, List, undefined), Def);
+  path(Path, gz_list:nth(Key, List, undefined), Def);
 path(_, _, Def)->
   Def.
 

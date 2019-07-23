@@ -20,7 +20,7 @@ replace(<<>>, _, _) ->
   <<>>;
 replace(Bin, Value, Range)when is_tuple(Range) ->
   DL = byte_size(Bin),
-  case dg_util:normal_range(DL, Range) of
+  case gz_util:normal_range(DL, Range) of
     {ok, {PosA, PosB}}->
       do_bin_replace_pos(Bin, DL, Value, PosA, PosB - PosA);
     _->Bin
@@ -62,7 +62,7 @@ part(Bin, {PosMin, PosMax}) when PosMax < PosMin->
   part(Bin, {PosMax, PosMin});
 part(Bin, {PosMin0, PosMax0}) ->
   BinLen = byte_size(Bin),
-  case {dg_util:clip(PosMin0, 0, BinLen), dg_util:clip(PosMax0, 0, BinLen)} of
+  case {gz_util:clip(PosMin0, 0, BinLen), gz_util:clip(PosMax0, 0, BinLen)} of
     {A, A}-><<>>;
     {PosMin, PosMax}->binary:part(Bin, {PosMin, PosMax-PosMin})
   end;

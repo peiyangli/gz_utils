@@ -16,11 +16,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 local_ip_v4() ->
+  hd(local_ip_v4s()).
+
+local_ip_v4s() ->
   {ok, Addrs} = inet:getifaddrs(),
-  hd([
+  [
     Addr || {_, Opts} <- Addrs, {addr, Addr} <- Opts,
     size(Addr) == 4, Addr =/= {127,0,0,1}
-  ]).
+  ].
 
 for_addrs(Filter) ->
   case inet:getifaddrs() of
@@ -75,5 +78,5 @@ ip_is_subnet(A0, {B0, Msk})->
 
 
 ip_to_bin({A, B, C, D})when ?ip(A, B, C, D)->
-  dg_util:format(<<"~b.~b.~b.~b">>, [A,B,C,D]).
+  gz_util:format(<<"~b.~b.~b.~b">>, [A,B,C,D]).
 

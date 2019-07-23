@@ -149,7 +149,7 @@ part(List, {PosMin, PosMax}) when PosMax < PosMin->
   part(List, {PosMax, PosMin});
 part(List, {PosMin0, PosMax0}) ->
   DataLen = length(List),
-  case {dg_util:clip(PosMin0, 0, DataLen), dg_util:clip(PosMax0, 1, DataLen)} of
+  case {gz_util:clip(PosMin0, 0, DataLen), gz_util:clip(PosMax0, 1, DataLen)} of
     {A, A}->[];
     {PosMin, PosMax}->lists:sublist(List, PosMin+1, PosMax-PosMin)
   end;
@@ -203,21 +203,21 @@ nth(_, _, Def)->Def.
 replace([], _, _) ->
   [];
 replace(Data, Value, Range)when is_tuple(Range) ->
-  DL = dg_util:data_length(Data),
-  case dg_util:normal_range(DL, Range) of
+  DL = gz_util:data_length(Data),
+  case gz_util:normal_range(DL, Range) of
     {ok, {PosA, PosB}}->
       do_list_replace_pos(Data, DL, Value, PosA, PosB - PosA);
     _->Data
   end;
 replace(Data, Value, Pos0) when Pos0 < 0 ->
-  DL = dg_util:data_length(Data),
+  DL = gz_util:data_length(Data),
   Pos = DL + Pos0 + 1,
   if
     Pos < 0 -> Data;
     true-> do_list_replace_pos(Data, DL, Value, Pos, 1)
   end;
 replace(Data, Value, Pos0) ->
-  DL = dg_util:data_length(Data),
+  DL = gz_util:data_length(Data),
   case DL - Pos0 < 0 of
     true->Data;
     _->do_list_replace_pos(Data, DL, Value, Pos0, 1)

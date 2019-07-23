@@ -22,7 +22,7 @@ for(I, Max, F) -> [F(I)|for(I+1, Max, F)].
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ~s, ~b, ~f
 % ~F.P.PadModC (field width, precision, padding character, control sequence modifier)
-% eg. dg_util:format(<<"hello ~s"/utf8>>, ["world"]).
+% eg. gz_util:format(<<"hello ~s"/utf8>>, ["world"]).
 format(Fmt, Args)when is_binary(Fmt)->
   list_to_binary(io_lib:format(Fmt, Args));
 format(Fmt, Args)->
@@ -188,8 +188,8 @@ nodes_map()->
 do_nodes_map(Nodes)->
   lists:foldl(
     fun(K, Acc)->
-      [IP, Srvs] = dg_list:split($@, atom_to_list(K)),
-      Acc#{IP => maps:get(IP, Acc, []) ++ [{K, dg_list:split($_, Srvs)}]}
+      [IP, Srvs] = gz_list:split($@, atom_to_list(K)),
+      Acc#{IP => maps:get(IP, Acc, []) ++ [{K, gz_list:split($_, Srvs)}]}
     end, #{}, Nodes).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 2^n = N

@@ -86,7 +86,7 @@ hms_to_s({H,M,S})->
   S+M*60+H*3600.
 
 format({{Y,Month,D}, {H,M,S}})->
-  dg_util:format("~4w-~2..0w-~2..0w ~2..0w:~2..0w:~2..0w", [Y,Month,D,H,M,S]);
+  gz_util:format("~4w-~2..0w-~2..0w ~2..0w:~2..0w:~2..0w", [Y,Month,D,H,M,S]);
 format(TmS)->
   format(timestamp_to_localtime(TmS)).
 
