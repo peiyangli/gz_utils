@@ -79,5 +79,6 @@ ip_is_subnet(A0, {B0, Msk})->
 
 ip_to_bin({A, B, C, D})when ?ip(A, B, C, D)->
   gz_util:format(<<"~b.~b.~b.~b">>, [A,B,C,D]);
-ip_to_bin(Any)-> gz_util:format(<<"~p">>, [Any]).
+ip_to_bin(Any) when is_binary(Any)-> Any;
+ip_to_bin(Any)-> gz_util:format(<<"~s">>, [Any]).
 
