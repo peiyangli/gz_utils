@@ -10,6 +10,7 @@
 -author("pei").
 
 %% API
+-export([h2b/1, b2h/1]).
 -export([replace/3, part/2, from/1, convert/1]).
 %%-compile(export_all).
 
@@ -87,3 +88,10 @@ convert(V) when is_integer(V)-> {ok, integer_to_binary(V)};
 convert(V) when is_float(V)-> {ok, float_to_binary(V)};
 convert(V)when is_atom(V)-> {ok, list_to_binary(atom_to_list(V))};
 convert(_)->{error, not_supported}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+b2h(Bin)->
+  << <<(erlang:integer_to_binary(Char, 16))/binary>> || <<Char:8>> <= Bin >>.
+h2b(String)->
+  << << (erlang:binary_to_integer(Char, 16)):8/integer >> || <<Char:2/binary>> <= String >>.

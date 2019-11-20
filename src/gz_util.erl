@@ -56,6 +56,7 @@ format(Fmt, Args)->
 %%% binary to hex
 b2h(Bin) -> lists:flatten([io_lib:format("~2.16.0B", [X]) || X <- binary_to_list(Bin)]).
 %%% hex to binary
+%%  << << (erlang:list_to_integer([Char], 16)):4/integer >> || <<Char:8>> <= String >>;
 h2b(String) -> << << (erlang:list_to_integer([Char], 16)):4/integer >> || Char <- String >>.
 t(String)-> h2b(String).
 
