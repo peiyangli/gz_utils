@@ -268,6 +268,16 @@ json_decode(JsonBin) when is_binary(JsonBin) orelse is_list(JsonBin)->
 json_decode(X)->
   {error, {format, X}}.
 
+
+json_encode(Json) ->
+  try
+    JsonBin = jiffy:encode(Json),
+    {ok, JsonBin}
+  catch
+    E:R  ->
+      {error, {E, R}}
+  end.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 get_env(AppName, Key) ->
   get_env(AppName, Key, undefined).
