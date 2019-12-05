@@ -257,14 +257,16 @@ flags_remove(V, Flags)when is_integer(V) andalso is_integer(Flags)->
   Flags band (bnot V).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% require jiffy
-json_decode(JsonBin)->
+json_decode(JsonBin) when is_binary(JsonBin) orelse is_list(JsonBin)->
   try
     JsonMap = jiffy:decode(JsonBin, [return_maps]),
     {ok, JsonMap}
   catch
     E:R  ->
       {error, {E, R}}
-  end.
+  end;
+json_decode(X)->
+  {error, {format, X}}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 get_env(AppName, Key) ->
