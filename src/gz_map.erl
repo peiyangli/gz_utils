@@ -10,7 +10,7 @@
 -author("pei").
 
 %% API
--export([path/2, merge/2, from_json/1]).
+-export([path/2, merge/2, from_json/1, removes/2]).
 
 %%-compile(export_all).
 
@@ -60,3 +60,7 @@ from_json(JsonBin)->
     E:R  ->
       {error, {E, R}}
   end.
+
+removes([], Map0) -> Map0;
+removes([Key|Tail], Map0) -> removes(Tail, maps:remove(Key, Map0));
+removes(_, Map0) -> Map0.
